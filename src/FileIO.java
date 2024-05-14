@@ -13,7 +13,7 @@ public class FileIO {
     /**
      * Writes a list of strings to a file, each string on a new line.
      *
-     * @param fileName The name of the file to write to.
+     * @param fileName The name of the file to write to and optionally the file path.
      * @param userData The list of strings to write to the file.
      */
     public static void writeDataToFile(String fileName, List<String> userData) {
@@ -23,10 +23,11 @@ public class FileIO {
             Path filePath = Path.of(fileName);
             // createDirectories() creates all directories in the path if they don't exist
             Files.createDirectories(filePath.getParent());
-            Files.write(filePath, userData);
-            System.out.println("Data saved to " + filePath);
+            // write the list of strings to the file
+            Files.write(filePath, userData);            
         } catch (IOException e) {
-            System.out.println(fileName + " cannot be written to");
+            // print a relevant error message if the file cannot be written to
+            System.out.println(fileName + " cannot be written to " + e.getMessage());
         }
     }
 
@@ -69,9 +70,10 @@ public class FileIO {
      * @param fileName The name of the file to read from.
      * @return A list of strings containing the lines of the file.
      */
-    public static List<String>  readSerialDataFromFile(String fileName) {
+    public static List<String> readSerialDataFromFile(String fileName) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-            return (List<String>) ois.readObject();
+            List<String> userData = (List<String>) ois.readObject();
+            return userData;
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(fileName + " file can't be read. Error " + e.getMessage());
             return new ArrayList<>();
