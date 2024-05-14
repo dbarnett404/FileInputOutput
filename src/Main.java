@@ -5,7 +5,7 @@ import java.util.Arrays;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     private static final String FILE_NAME = "..//assets//animals.txt";
-    private static final String SERIAL_FILE_NAME = "...//assets//animals.ser";
+    private static final String SERIAL_FILE_NAME = "..//assets//animals.ser";
     public static void main(String[] args) {
         //Convert the array of names to an ArrayList
         ArrayList<String> animalNames1 = new ArrayList<>(Arrays.asList(AnimalNames.NAMES_01));

@@ -22,7 +22,6 @@ public class FileIO {
             // converts the string to a Path object
             Path filePath = Path.of(fileName);
             // createDirectories() creates all directories in the path if they don't exist
-            System.out.println("Parent is " + filePath.getParent());
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, userData);
             System.out.println("Data saved to " + filePath);
