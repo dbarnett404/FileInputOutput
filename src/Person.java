@@ -5,16 +5,23 @@ public class Person {
     private int age;
     private String eMail;
 
+    /**
+     * Constructor for creating a Person object
+     * @param name
+     * @param age
+     * @param eMail
+     */
     public Person(String name, int age, String eMail) {
         this.name = name;
         this.age = age;
         this.eMail = eMail;
     }
 
-    public Person(String dataString, boolean csv) {
-        if (!csv) {
-            return;
-        }
+    /**
+     * Overloaded constructor for creating a Person object from a CSV string
+     * @param dataString     
+     */
+    public Person(String dataString) {
         String[] data = dataString.split(",");
         this.name = data[0];
         this.age = Integer.parseInt(data[1]);
@@ -30,6 +37,11 @@ public class Person {
                 '}';
     }
 
+    /**
+     * Overloaded toString method for returning a CSV string
+     * @param csv
+     * @return the CSV string
+     */
     public String toString(boolean csv) {
         if (!csv) {
             return toString();
@@ -48,7 +60,7 @@ public class Person {
         FileIO.writeDataToFile(FILE_NAME, personList);
         ArrayList<String> readData = (ArrayList<String>) FileIO.readDataFromFile(FILE_NAME);
         for (String s : readData) {
-            System.out.println(new Person(s, true));
+            System.out.println(new Person(s));
         }
     }
 }

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.file.StandardOpenOption;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,6 +26,33 @@ public class FileIO {
             Files.createDirectories(filePath.getParent());
             // write the list of strings to the file
             Files.write(filePath, userData);            
+        } catch (IOException e) {
+            // print a relevant error message if the file cannot be written to
+            System.out.println(fileName + " cannot be written to " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * Writes a list of strings to a file, each string on a new line.
+     *
+     * @param fileName The name of the file to write to and optionally the file path.
+     * @param userData The list of strings to write to the file.
+     * @param append If true, data will be appended to the file if it exists. If false, the file will be overwritten.
+     */
+    public static void writeDataToFile(String fileName, List<String> userData, boolean append) {
+        try {
+            // Path is used here to create directories if they don't exist
+            // converts the string to a Path object
+            Path filePath = Path.of(fileName);
+            // createDirectories() creates all directories in the path if they don't exist
+            Files.createDirectories(filePath.getParent());
+            // write the list of strings to the file
+            if (append && Files.exists(filePath)) {
+                Files.write(filePath, userData, StandardOpenOption.APPEND);
+            } else {
+                Files.write(filePath, userData);
+            }            
         } catch (IOException e) {
             // print a relevant error message if the file cannot be written to
             System.out.println(fileName + " cannot be written to " + e.getMessage());
